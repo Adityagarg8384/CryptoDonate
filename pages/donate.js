@@ -29,7 +29,6 @@ export default function Index({AllData, NationalData, StateData}) {
           <Card key={e.title}>
           <CardImg>
             <Image 
-              alt="Crowdfunding dapp"
               layout='fill' 
               src={"https://ipfs.moralis.io:2053/ipfs/" + e.image} 
             />
