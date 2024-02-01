@@ -6,7 +6,7 @@ import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactor
 import { useState } from 'react';
 import Link from 'next/link'
 
-export default function Index({AllData, HealthData, EducationData,AnimalData}) {
+export default function Index({AllData, NationalData, StateData}) {
   const [filter, setFilter] = useState(AllData);
 
   return (
@@ -15,9 +15,9 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
       {/* Filter Section */}
       <FilterWrapper>
         <Category onClick={() => setFilter(AllData)}>All</Category>
-        <Category onClick={() => setFilter(HealthData)}>Health</Category>
-        <Category onClick={() => setFilter(EducationData)}>Education</Category>
-        <Category onClick={() => setFilter(AnimalData)}>Animal</Category>
+        <Category onClick={() => setFilter(NationalData)}>National Party</Category>
+        <Category onClick={() => setFilter(StateData)}>State Party</Category>
+        {/* <Category onClick={() => setFilter(AnimalData)}>Animal</Category> */}
       </FilterWrapper>
 
       {/* Cards Container */}
@@ -88,9 +88,9 @@ export async function getStaticProps() {
     }
   });
 
-  const getHealthCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Health');
-  const HealthCampaigns = await contract.queryFilter(getHealthCampaigns);
-  const HealthData = HealthCampaigns.map((e) => {
+  const getNationalParty = contract.filters.campaignCreated(null,null,null,null,null,null,'National');
+  const NationalParty = await contract.queryFilter(getNationalParty);
+  const NationalData = NationalParty.map((e) => {
     return {
       title: e.args.title,
       image: e.args.imgURI,
@@ -101,9 +101,9 @@ export async function getStaticProps() {
     }
   });
 
-  const getEducationCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'education');
-  const EducationCampaigns = await contract.queryFilter(getEducationCampaigns);
-  const EducationData = EducationCampaigns.map((e) => {
+  const getStateParty = contract.filters.campaignCreated(null,null,null,null,null,null,'State');
+  const StateParty = await contract.queryFilter(getStateParty);
+  const StateData = StateParty.map((e) => {
     return {
       title: e.args.title,
       image: e.args.imgURI,
@@ -114,25 +114,13 @@ export async function getStaticProps() {
     }
   });
 
-  const getAnimalCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Animal');
-  const AnimalCampaigns = await contract.queryFilter(getAnimalCampaigns);
-  const AnimalData = AnimalCampaigns.map((e) => {
-    return {
-      title: e.args.title,
-      image: e.args.imgURI,
-      owner: e.args.owner,
-      timeStamp: parseInt(e.args.timestamp),
-      amount: ethers.utils.formatEther(e.args.requiredAmount),
-      address: e.args.campaignAddress
-    }
-  });
+
 
   return {
     props: {
       AllData,
-      HealthData,
-      EducationData,
-      AnimalData
+      NationalData,
+      StateData,
     },
     revalidate: 10
   }
