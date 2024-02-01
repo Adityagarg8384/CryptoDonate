@@ -1,5 +1,5 @@
-import { stat } from "../components/mainpage/first";
-import {Pag} from "../components/mainpage/second";
+import { stat, } from "../components/mainpage/First";
+import {prop} from "../pages/otp";
 import Layout from "../components/layout/layout";
 
 export default function App({ Component, pageProps }) {
@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
   return (
     <div>{
       stat === false ?
-      Pag===false?
+      prop===false?
         <Component {...pageProps} />
         :
         <Layout>
@@ -19,5 +19,8 @@ export default function App({ Component, pageProps }) {
         </Layout>
     }
     </div>
+    // <Layout>
+    //       <Component {...pageProps} />
+    //     </Layout>
   )
 }

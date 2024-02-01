@@ -6,21 +6,22 @@ import styled from "styled-components"
 //     <First />
 //     )
 // }
-import themes from "../components/layout/theme";
+import themes from "../components/layout/themes";
 import Layout from "../components/layout/layout"
-import First from "../components/mainpage/first";
-import {stat} from "../components/mainpage/first";
-import {Pag} from "../components/mainpage/second";
-import Enter from "../components/mainpage/enter";
+import First from "../components/mainpage/First";
+import {stat} from "../components/mainpage/First";
+import {prop} from "../pages/otp";
+// import {pag} from "../components/mainpage/first";
+import Enter from "../components/mainpage/Enter";
 
 import { useState } from "react"
-
+// Pag===false &&
 export default function Home() {
 
   return (
     <di>
       {
-        Pag===false && stat===false?
+         prop===false && stat===false?
         <H>
         <Head>
           {
@@ -32,6 +33,9 @@ export default function Home() {
         <Enter/>
       }
     </di>
+    // <div>
+    //   <Enter/>
+    // </div>
 
     )
 }
