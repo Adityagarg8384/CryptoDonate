@@ -7,18 +7,6 @@ import { create as IPFSHTTPClient } from 'ipfs-http-client';
 const Moralis = require("moralis").default;
 require('dotenv').config();
 
-// const projectId = process.env.NEXT_PUBLIC_IPFS_ID
-// const projectSecret = process.env.NEXT_PUBLIC_IPFS_KEY
-// const auth = 'Basic ' + Buffer.from(projectId + ":" + projectSecret).toString('base64')
-
-// const client = IPFSHTTPClient({
-//   host:'ipfs.infura.io',
-//   port:5001,
-//   protocol: 'https',
-//   headers: {
-//     authorization: auth
-//   }
-// })
 
 const FormRightWrapper = () => {
   const Handler = useContext(FormState);
@@ -30,7 +18,7 @@ const FormRightWrapper = () => {
     console.log(process.env.MORALIS_API_KEY);
     e.preventDefault();
     await Moralis.start({
-      apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjVjNTQ1MWVlLWFjNTctNGU1Mi05Y2EzLWYzMTRlMjkzNWQxYyIsIm9yZ0lkIjoiMzc1MTM4IiwidXNlcklkIjoiMzg1NTA5IiwidHlwZUlkIjoiMGVjNDVmYjEtMzRjYy00MThhLWE3OWMtZTdhOTNjNjVmNTVhIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3MDY3MTIyMjAsImV4cCI6NDg2MjQ3MjIyMH0.dutPV0T2uxx7WJqyTm5zcJzkvSCRkLER9meGuGITXV4",
+      apiKey: process.env.MORALIS_KEY,
     });
     setUploadLoading(true);
     console.log(Handler);
