@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import First from '../components/mainpage/First'
 import styled from 'styled-components'
 import{Number} from "../components/mainpage/First";
-// import { toast } from 'react-toastify/dist/components';
 import Link from 'next/link';
 
 var prop=false;
@@ -12,45 +11,34 @@ const otp = () => {
     const [userOtp, setUserOtp]=useState('');
     const phoneNumber="+918384030040"
     const verifysend=()=>{
-        console.log(phoneNumber);
-        console.log(userOtp);
         fetch("http://localhost:3001/verify-otp", {
             method: 'POST',
             body: JSON.stringify({
                 phoneNumber,
                 userOtp
             }),
-            // headers: {
-            //     'Content-type': 'application/json; charset=UTF-8',
-            // },
+            
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
         .then((response)=>{
-            console.log(response.status);
             if(response.status==200){
-                console.log("success");
                 setStatus(true);
                 prop=true;
-                // toast.success("OTP sent successfully");
             }
             else{
                 console.log("Failed1");
-                // toast.error("Some error occurrend")
             }
         })
         .catch((err)=>{
             console.log(err);
-            // toast.success("Failed");
         })
     }
 
     return (
-        // <div>
-        //     <First/>
-        // </div>
+     
         <Di>
             <H>
                 <Head>
@@ -63,9 +51,7 @@ const otp = () => {
                         <But>
                             <Input placeholder="OTP" name="OTP" value={userOtp} onChange={e=>setUserOtp(e.target.value)}>
                             </Input>
-                            {/* <FourthMain>
-                                Note- You should have a registered mobile number with us.If you're mobile number is not registered <a href="/createcampaign">Click Here</a>
-                            </FourthMain> */}
+                            
                         </But>
                         <Bu type="submit" onClick={verifysend} >Submit</Bu>
                     </SecondMain>
@@ -95,7 +81,7 @@ const H = styled.div`
 height:100vh;
 width: 100vw;
 display: flex;
-justify-content: space-around;
+justify-content: center;
 align-items: center;
 
 `
@@ -107,6 +93,10 @@ justify-content: center;
 align-items: center;
 background-color: Black;
 border-radius: 10px;
+@media (max-width: 431px) and (max-height: 933px) {
+    width: 100rem;
+    height: 100rem;
+   }
 `
 
 const SecondMain = styled.div`
@@ -119,6 +109,10 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 align-items: center;
+@media (max-width: 431px) and (max-height: 933px) {
+    justify-content: center;
+    height: 100rem;
+   }
 `
 
 const ThirdMain = styled.div`
@@ -126,6 +120,12 @@ text-align: center;
 margin-down: 100px;
 font-size: 40px;
 color: white;
+
+@media (max-width: 431px) and (max-height: 933px) {
+    // justify-content: center;
+    margin-down: 4rem;
+    // height: 2.5rem;
+   }
 `
 
 const Input = styled.input`
@@ -163,8 +163,13 @@ font-size: 16px;
 border-radius: 5px; 
 border: none; 
 cursor: pointer;
+@media (max-width: 431px) and (max-height: 933px) {
+    // justify-content: center;
+    margin-top: 2rem;
+    height: 2.5rem;
+   }
 `
 
-export{prop};
+export {prop};
 
 export default otp
