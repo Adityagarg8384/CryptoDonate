@@ -66,7 +66,7 @@ export default function Index() {
 
 export async function getStaticProps() {
  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL,
+    "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk",
     {name:"sepolia",
     chainId: 11155111,
     },
