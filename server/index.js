@@ -11,9 +11,9 @@ const PORT= 3001;
 app.use(bodyParser.json());
 app.use(cors());
 
-const MONGOURI= process.env.MONGODB_URL;
-const accountSID= process.env.ACCOUNT_SID;
-const authToken= process.env.AUTH_TOKEN;
+const MONGOURI= "mongodb+srv://adityanimisha2003:39tH56wiIltNGXqf@cluster0.nuwspms.mongodb.net/";
+const accountSID= "ACe42004ad4f298e91488007d4ea532f59";
+const authToken= "0c37453073564d5b301eefbbc8db5698";
 
 const client= new twilio(accountSID, authToken);
 
