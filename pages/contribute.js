@@ -7,139 +7,139 @@ import { useState } from 'react';
 import Link from 'next/link'
 
 export default function Index() {
-  // const [filter, setFilter] = useState(AllData);
+  const [filter, setFilter] = useState(AllData);
 
   return (
     <HomeWrapper>
 
       {/* Filter Section */}
-      // <FilterWrapper>
-      //   <Category onClick={() => setFilter(AllData)}>All</Category>
-      //   <Category onClick={() => setFilter(HealthData)}>Health</Category>
-      //   <Category onClick={() => setFilter(EducationData)}>Education</Category>
-      //   <Category onClick={() => setFilter(AnimalData)}>Animal</Category>
-      // </FilterWrapper>
+      <FilterWrapper>
+        <Category onClick={() => setFilter(AllData)}>All</Category>
+        <Category onClick={() => setFilter(HealthData)}>Health</Category>
+        <Category onClick={() => setFilter(EducationData)}>Education</Category>
+        <Category onClick={() => setFilter(AnimalData)}>Animal</Category>
+      </FilterWrapper>
 
-      // {/* Cards Container */}
-      // <CardsWrapper>
+      {/* Cards Container */}
+      <CardsWrapper>
 
-      // {/* Card */}
-      // {filter.map((e) => {
-      //   return (
-      //     <Card key={e.title}>
-      //     <CardImg>
-      //       <Image 
-      //         alt="Crowdfunding dapp"
-      //         layout='fill' 
-      //         src={"https://ipfs.moralis.io:2053/ipfs/" + e.image} 
-      //       />
-      //     </CardImg>
-      //     <Title>
-      //       {e.title}
-      //     </Title>
-      //     <CardData>
-      //       <Text>Owner</Text> 
-      //       <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
-      //     </CardData>
-      //     <CardData>
-      //       <Text>Amount</Text> 
-      //       <Text>{e.amount} Matic</Text>
-      //     </CardData>
-      //     <CardData>
-      //       <Text></Text>
-      //       <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
-      //     </CardData>
-      //     <Link passHref href={'/' + e.address}><Button>
-      //       Go to Campaign
-      //     </Button></Link>
-      //   </Card>
-      //   )
-      // })}
-      //   {/* Card */}
+      {/* Card */}
+      {filter.map((e) => {
+        return (
+          <Card key={e.title}>
+          <CardImg>
+            <Image 
+              alt="Crowdfunding dapp"
+              layout='fill' 
+              src={"https://ipfs.moralis.io:2053/ipfs/" + e.image} 
+            />
+          </CardImg>
+          <Title>
+            {e.title}
+          </Title>
+          <CardData>
+            <Text>Owner</Text> 
+            <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
+          </CardData>
+          <CardData>
+            <Text>Amount</Text> 
+            <Text>{e.amount} Matic</Text>
+          </CardData>
+          <CardData>
+            <Text></Text>
+            <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
+          </CardData>
+          <Link passHref href={'/' + e.address}><Button>
+            Go to Campaign
+          </Button></Link>
+        </Card>
+        )
+       })}
+        {/* Card */}
 
-      // </CardsWrapper>
+       </CardsWrapper>
     </HomeWrapper>
   )
 }
 
 
 
-// export async function getStaticProps() {
-//  const provider = new ethers.providers.JsonRpcProvider(
-//     process.env.NEXT_PUBLIC_RPC_URL,
-//     {name:"sepolia",
-//     chainId: 11155111,
-//     },
-//   );
+export async function getStaticProps() {
+ const provider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_RPC_URL,
+    {name:"sepolia",
+    chainId: 11155111,
+    },
+  );
 
-//   const contract = new ethers.Contract(
-//     "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
-//     CampaignFactory.abi,
-//     provider
-//   );
+  const contract = new ethers.Contract(
+    "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
+    CampaignFactory.abi,
+    provider
+  );
 
-//   const getAllCampaigns = contract.filters.campaignCreated();
-//   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-//   const AllData = AllCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
+  const getAllCampaigns = contract.filters.campaignCreated();
+  const AllCampaigns = await contract.queryFilter(getAllCampaigns);
+  const AllData = AllCampaigns.map((e) => {
+    return {
+      title: e.args.title,
+      image: e.args.imgURI,
+      owner: e.args.owner,
+      timeStamp: parseInt(e.args.timestamp),
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
+    }
+  });
 
-//   const getHealthCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Health');
-//   const HealthCampaigns = await contract.queryFilter(getHealthCampaigns);
-//   const HealthData = HealthCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
+  const getHealthCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Health');
+  const HealthCampaigns = await contract.queryFilter(getHealthCampaigns);
+  const HealthData = HealthCampaigns.map((e) => {
+    return {
+      title: e.args.title,
+      image: e.args.imgURI,
+      owner: e.args.owner,
+      timeStamp: parseInt(e.args.timestamp),
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
+    }
+  });
 
-//   const getEducationCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'education');
-//   const EducationCampaigns = await contract.queryFilter(getEducationCampaigns);
-//   const EducationData = EducationCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
+  const getEducationCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'education');
+  const EducationCampaigns = await contract.queryFilter(getEducationCampaigns);
+  const EducationData = EducationCampaigns.map((e) => {
+    return {
+      title: e.args.title,
+      image: e.args.imgURI,
+      owner: e.args.owner,
+      timeStamp: parseInt(e.args.timestamp),
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
+    }
+  });
 
-//   const getAnimalCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Animal');
-//   const AnimalCampaigns = await contract.queryFilter(getAnimalCampaigns);
-//   const AnimalData = AnimalCampaigns.map((e) => {
-//     return {
-//       title: e.args.title,
-//       image: e.args.imgURI,
-//       owner: e.args.owner,
-//       timeStamp: parseInt(e.args.timestamp),
-//       amount: ethers.utils.formatEther(e.args.requiredAmount),
-//       address: e.args.campaignAddress
-//     }
-//   });
+  const getAnimalCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Animal');
+  const AnimalCampaigns = await contract.queryFilter(getAnimalCampaigns);
+  const AnimalData = AnimalCampaigns.map((e) => {
+    return {
+      title: e.args.title,
+      image: e.args.imgURI,
+      owner: e.args.owner,
+      timeStamp: parseInt(e.args.timestamp),
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
+    }
+  });
 
-//   return {
-//     props: {
-//       AllData,
-//       HealthData,
-//       EducationData,
-//       AnimalData
-//     },
-//     revalidate: 10
-//   }
-// }
+  return {
+    props: {
+      AllData,
+      HealthData,
+      EducationData,
+      AnimalData
+    },
+    revalidate: 10
+  }
+}
 
 
 
