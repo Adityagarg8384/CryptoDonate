@@ -3,7 +3,7 @@ import Form from '../components/form/Form';
 const createcampaign = () => {
   return (
     <div>
-      // <Form />
+      <Form />
     </div>
   )
 }
