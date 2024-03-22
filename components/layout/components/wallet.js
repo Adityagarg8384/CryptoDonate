@@ -26,20 +26,8 @@ const Wallet = () => {
       method: "eth_requestAccounts",
     })
     if (typeof window !== undefined) {
-      // browser code
       const provider = new ethers.providers.Web3Provider(ethereum, "any");
-      // console.log(provider._network.chainId);
-      // if (provider.network !== "ETH") {
-      //   console.log("Entered successfully");
-      //   await ethereum.request({
-      //     method: "wallet_addEthereumChain",
-      //     params: [
-      //       {
-      //         ...networks["sepolia"],
-      //       }
-      //     ]
-      //   })
-      // }
+      
       const account = provider.getSigner();
       const Address = await account.getAddress();
       const Balanace= ethers.utils.formatEther(await account.getBalance());
@@ -64,6 +52,7 @@ justify-content: space-between;
 align-items: center;
 background-color:${(props)=> props.theme.bgDiv};
 color: ${(props)=> props.theme.color};
+margin-left: 1rem;
 // padding: 6px;
 // max-height:80%;
 // cursor: pointer;
@@ -74,6 +63,10 @@ padding: 6px;
 max-height:80%;
 cursor: pointer;
 font-weight: bold;
+@media (max-width: 431px) and (max-height: 933px) {
+  font-size: 0.5rem;
+  padding: 0.2rem;
+}
 `
 
 const Balance= styled.div`
@@ -81,6 +74,10 @@ padding: 6px;
 max-height:80%;
 cursor: pointer;
 font-weight: bold;
+@media (max-width: 431px) and (max-height: 933px) {
+  font-size: 0.5rem;
+  padding: 0.2rem;
+}
 `
 
 export default Wallet;
