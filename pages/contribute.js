@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled ,{css} from 'styled-components';
 
 import Image from 'next/image';
 import { ethers } from 'ethers';
@@ -6,7 +6,7 @@ import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactor
 import { useState } from 'react';
 import Link from 'next/link'
 
-export default function Index({AllData, NationalData, StateData}) {
+export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
 
   return (
@@ -15,9 +15,9 @@ export default function Index({AllData, NationalData, StateData}) {
       {/* Filter Section */}
       <FilterWrapper>
         <Category onClick={() => setFilter(AllData)}>All</Category>
-        <Category onClick={() => setFilter(NationalData)}>National Party</Category>
-        <Category onClick={() => setFilter(StateData)}>State Party</Category>
-        {/* <Category onClick={() => setFilter(AnimalData)}>Animal</Category> */}
+        <Category onClick={() => setFilter(HealthData)}>Health</Category>
+        <Category onClick={() => setFilter(EducationData)}>Education</Category>
+        <Category onClick={() => setFilter(AnimalData)}>Animal</Category>
       </FilterWrapper>
 
       {/* Cards Container */}
@@ -29,6 +29,7 @@ export default function Index({AllData, NationalData, StateData}) {
           <Card key={e.title}>
           <CardImg>
             <Image 
+              alt="Crowdfunding dapp"
               layout='fill' 
               src={"https://ipfs.moralis.io:2053/ipfs/" + e.image} 
             />
@@ -87,9 +88,9 @@ export async function getStaticProps() {
     }
   });
 
-  const getNationalParty = contract.filters.campaignCreated(null,null,null,null,null,null,'National');
-  const NationalParty = await contract.queryFilter(getNationalParty);
-  const NationalData = NationalParty.map((e) => {
+  const getHealthCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Health');
+  const HealthCampaigns = await contract.queryFilter(getHealthCampaigns);
+  const HealthData = HealthCampaigns.map((e) => {
     return {
       title: e.args.title,
       image: e.args.imgURI,
@@ -100,9 +101,9 @@ export async function getStaticProps() {
     }
   });
 
-  const getStateParty = contract.filters.campaignCreated(null,null,null,null,null,null,'State');
-  const StateParty = await contract.queryFilter(getStateParty);
-  const StateData = StateParty.map((e) => {
+  const getEducationCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'education');
+  const EducationCampaigns = await contract.queryFilter(getEducationCampaigns);
+  const EducationData = EducationCampaigns.map((e) => {
     return {
       title: e.args.title,
       image: e.args.imgURI,
@@ -113,13 +114,25 @@ export async function getStaticProps() {
     }
   });
 
-
+  const getAnimalCampaigns = contract.filters.campaignCreated(null,null,null,null,null,null,'Animal');
+  const AnimalCampaigns = await contract.queryFilter(getAnimalCampaigns);
+  const AnimalData = AnimalCampaigns.map((e) => {
+    return {
+      title: e.args.title,
+      image: e.args.imgURI,
+      owner: e.args.owner,
+      timeStamp: parseInt(e.args.timestamp),
+      amount: ethers.utils.formatEther(e.args.requiredAmount),
+      address: e.args.campaignAddress
+    }
+  });
 
   return {
     props: {
       AllData,
-      NationalData,
-      StateData,
+      HealthData,
+      EducationData,
+      AnimalData
     },
     revalidate: 10
   }
@@ -135,13 +148,21 @@ const HomeWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-`
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      width: 100%;
+    }
+  `}
+`;
+
 const FilterWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 80%;
   margin-top: 15px;
-`
+`;
+
 const Category = styled.div`
   padding: 10px 15px;
   background-color: ${(props) => props.theme.bgDiv};
@@ -150,33 +171,50 @@ const Category = styled.div`
   font-family: 'Poppins';
   font-weight: normal;
   cursor: pointer;
-`
+`;
+
 const CardsWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items:center;
   flex-wrap: wrap;
   width: 80%;
   margin-top: 25px;
-`
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      flex-direction: column;
+      width: 100%;
+    }
+  `}
+`;
+
 const Card = styled.div`
   width: 30%;
   margin-top: 20px;
   background-color: ${(props) => props.theme.bgDiv};
 
-  &:hover{
+  &:hover {
     transform: translateY(-10px);
     transition: transform 0.5s;
   }
-  
-  &:not(:hover){
+
+  &:not(:hover) {
     transition: transform 0.5s;
   }
-`
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+     width: 20rem;
+    }
+  `}
+`;
+
 const CardImg = styled.div`
   position: relative;
   height: 120px;
   width: 100%;
-`
+`;
+
 const Title = styled.h2`
   font-family: 'Roboto';
   font-size: 18px;
@@ -185,7 +223,8 @@ const Title = styled.h2`
   padding: 5px;
   cursor: pointer;
   font-weight: normal;
-`
+`;
+
 const CardData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -193,7 +232,8 @@ const CardData = styled.div`
   background-color: ${(props) => props.theme.bgSubDiv};
   padding: 5px;
   cursor: pointer;
-  `
+`;
+
 const Text = styled.p`
   display: flex;
   align-items: center;
@@ -202,14 +242,14 @@ const Text = styled.p`
   font-family: 'Roboto';
   font-size: 18px;
   font-weight: bold;
-`
+`;
+
 const Button = styled.button`
   padding: 8px;
   text-align: center;
   width: 100%;
-  background-color:#00b712 ;
-  background-image:
-      linear-gradient(180deg, #00b712 0%, #5aff15 80%); 
+  background-color: #00b712;
+  background-image: linear-gradient(180deg, #00b712 0%, #5aff15 80%);
   border: none;
   cursor: pointer;
   font-family: 'Roboto';
@@ -217,4 +257,4 @@ const Button = styled.button`
   color: #fff;
   font-size: 14px;
   font-weight: bold;
-  `
+`;
