@@ -6,6 +6,8 @@ import { TailSpin } from 'react-loader-spinner';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import CampaignFactory from '../../artifacts/Contracts/Campaigns.sol/CampaignFactory';
+require("dotenv").config();
+
 
 const FormState = createContext();
 
@@ -39,7 +41,7 @@ const Form = () => {
 
     const startCampaign = async (e) => {
         e.preventDefault();
-        const provider = new ethers.providers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk");
+        const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
         const signer = provider.getSigner();
         
         if (form.campaignTitle === "") {
@@ -53,7 +55,7 @@ const Form = () => {
         } else {
             setLoading(true);
             const contract = new ethers.Contract(
-                "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
+                process.env.NEXT_PUBLIC_ADDRESS,
                 CampaignFactory.abi,
                 signer
             );
