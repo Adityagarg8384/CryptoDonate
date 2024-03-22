@@ -1,21 +1,13 @@
 import styled from "styled-components"
-// import First from "../components/mainpage/first"
 
-// export default function Home() {
-//   return (
-//     <First />
-//     )
-// }
 import themes from "../components/layout/themes";
 import Layout from "../components/layout/layout"
 import First from "../components/mainpage/First";
 import {stat} from "../components/mainpage/First";
 import {prop} from "../pages/otp";
-// import {pag} from "../components/mainpage/first";
 import Enter from "../components/mainpage/Enter";
 
 import { useState } from "react"
-// Pag===false &&
 export default function Home() {
 
   return (
@@ -33,9 +25,7 @@ export default function Home() {
         <Enter/>
       }
     </di>
-    // <div>
-    //   <Enter/>
-    // </div>
+  
 
     )
 }
@@ -75,10 +65,10 @@ justify-content: center;
 align-items: center;
 background-color: Black;
 border-radius: 10px;
+
+@media (max-width: 431px) and (max-height: 933px) {
+  width: 40rem;
+  height: 100rem;
+ }
 `
 
-// const Input= styled.input`
-// display: flex;
-// justify-content: space-around;
-// align-items: center;
-// `
