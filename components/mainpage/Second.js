@@ -10,9 +10,7 @@ const Second = () => {
             <But>
             <Input placeholder="OTP" name="OTP">
             </Input>
-            {/* <FourthMain>
-                Note- You should have a registered mobile number with us.If you're mobile number is not registered <a href="/createcampaign">Click Here</a>
-            </FourthMain> */}
+            
             </But>
             <Bu type="submit" >Submit</Bu>
         </SecondMain>
