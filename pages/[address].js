@@ -4,6 +4,7 @@ import {ethers} from 'ethers';
 import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactory.json';
 import Campaign from '../artifacts/Contracts/Campaigns.sol/Campaign.json';
 import { useEffect, useState } from "react";
+require("dotenv").config();
 
 
 export default function Detail({Data, DonationsData}) {
@@ -22,7 +23,7 @@ export default function Detail({Data, DonationsData}) {
       const Address = await signer.getAddress();
 
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk",
+        process.env.NEXT_PUBLIC_RPC_URL,
       );
     
       const contract = new ethers.Contract(
@@ -130,11 +131,11 @@ export default function Detail({Data, DonationsData}) {
 
 export async function getStaticPaths() {
   const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk"
+    process.env.NEXT_PUBLIC_RPC_URL,
   );
 
   const contract = new ethers.Contract(
-    "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
+    process.env.NEXT_PUBLIC_ADDRESS,
     CampaignFactory.abi,
     provider
   );
@@ -154,7 +155,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk"
+    process.env.NEXT_PUBLIC_RPC_URL,
   );
 
   const contract = new ethers.Contract(
