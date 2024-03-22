@@ -40,42 +40,42 @@ const Form = () => {
     }
 
     const startCampaign = async (e) => {
-        e.preventDefault();
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        console.log(signer);
+        // e.preventDefault();
+        // const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // const signer = provider.getSigner();
+        // console.log(signer);
         
-        if(form.campaignTitle === "") {
-          toast.warn("Title Field Is Empty");
-        } else if(form.story === "" ) {
-          toast.warn("Story Field Is Empty");
-        } else if(form.requiredAmount === "") {
-          toast.warn("Required Amount Field Is Empty");
-        } else if(uploaded == false) {
-            toast.warn("Files Upload Required")
-        }
-        else {        
-          setLoading(true);  
-          const contract = new ethers.Contract(
-            "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
-            CampaignFactory.abi,
-            signer
-          );
-            console.log(contract);
+        // if(form.campaignTitle === "") {
+        //   toast.warn("Title Field Is Empty");
+        // } else if(form.story === "" ) {
+        //   toast.warn("Story Field Is Empty");
+        // } else if(form.requiredAmount === "") {
+        //   toast.warn("Required Amount Field Is Empty");
+        // } else if(uploaded == false) {
+        //     toast.warn("Files Upload Required")
+        // }
+        // else {        
+        //   setLoading(true);  
+        //   const contract = new ethers.Contract(
+        //     "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
+        //     CampaignFactory.abi,
+        //     signer
+        //   );
+        //     console.log(contract);
 
-          const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
+        //   const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
          
-          const campaignData = await contract.createCampaign(
-            form.campaignTitle,
-            CampaignAmount,
-            imageUrl,
-            form.category,
-            storyUrl
-          );
+        //   const campaignData = await contract.createCampaign(
+        //     form.campaignTitle,
+        //     CampaignAmount,
+        //     imageUrl,
+        //     form.category,
+        //     storyUrl
+        //   );
 
-          await campaignData.wait();   
+        //   await campaignData.wait();   
     
-          setAddress(campaignData.to);
+        //   setAddress(campaignData.to);
         }
     }
 
