@@ -39,7 +39,7 @@ const Form = () => {
 
     const startCampaign = async (e) => {
         e.preventDefault();
-        const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
+        const provider = new ethers.providers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk");
         const signer = provider.getSigner();
         
         if (form.campaignTitle === "") {
