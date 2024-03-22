@@ -29,7 +29,6 @@ const Form = () => {
             ...form,
             [e.target.name]: e.target.value
         })
-        console.log(form);
     }
 
     const [image, setImage] = useState("");
@@ -64,11 +63,7 @@ const Form = () => {
           );
 
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
-          console.log(form.campaignTitle);
-          console.log(CampaignAmount);
-          console.log(imageUrl);
-          console.log(form.category);
-          console.log(storyUrl);
+         
           const campaignData = await contract.createCampaign(
             form.campaignTitle,
             CampaignAmount,
@@ -76,7 +71,6 @@ const Form = () => {
             form.category,
             storyUrl
           );
-          console.log("Hello");
 
           await campaignData.wait();   
     
