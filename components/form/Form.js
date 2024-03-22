@@ -57,7 +57,7 @@ const Form = () => {
         else {        
           setLoading(true);  
           const contract = new ethers.Contract(
-            process.env.NEXT_PUBLIC_ADDRESS,
+            "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
             CampaignFactory.abi,
             signer
           );
