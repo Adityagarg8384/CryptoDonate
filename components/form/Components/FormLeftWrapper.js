@@ -25,40 +25,49 @@ const FormLeftWrapper = () => {
 // onChange={Handler.FormHandler} value={Handler.form.campaignTitle}
 // onChange={Handler.FormHandler} value={Handler.form.story}
 const FormLeft = styled.div`
-  width:48%;
-`
+  width: 48%;
+
+  @media (max-width: 431px) and (max-height: 933px) {
+    width: 20rem;
+  }
+`;
 
 const FormInput = styled.div`
-  display:flex ;
-  flex-direction:column;
-  font-family:'poppins';
-  margin-top:10px ;
-`
+  display: flex;
+  flex-direction: column;
+  font-family: 'poppins';
+  margin-top: 10px;
+`;
+
 const Input = styled.input`
-  padding:15px;
-  background-color:${(props) => props.theme.bgDiv} ;
-  color:${(props) => props.theme.color} ;
-  margin-top:4px;
-  border:none ;
-  border-radius:8px ;
-  outline:none;
-  font-size:large;
-  width:100% ;
-`
+  padding: 15px;
+  background-color: ${(props) => props.theme.bgDiv};
+  color: ${(props) => props.theme.color};
+  margin-top: 4px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: large;
+  width: 100%;
+`;
 
 const TextArea = styled.textarea`
-  padding:15px;
-  background-color:${(props) => props.theme.bgDiv} ;
-  color:${(props) => props.theme.color} ;
-  margin-top:4px;
-  border:none;
-  border-radius:8px ;
-  outline:none;
-  font-size:large;
-  max-width:100%;
-  min-width:100%;
-  overflow-x:hidden;
-  min-height:160px ;
-`
+  padding: 15px;
+  background-color: ${(props) => props.theme.bgDiv};
+  color: ${(props) => props.theme.color};
+  margin-top: 4px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: large;
+  max-width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+  min-height: 160px;
+
+  @media (max-width: 431px) and (max-height: 933px) {
+    min-height: 100px;
+  }
+`;
 
 export default FormLeftWrapper;
