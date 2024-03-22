@@ -9,14 +9,10 @@ var prop = false;
 
 var stat = false;
 
-// const Change=()=>{
-//     prop= true;
-// }
+
 
 const Change = () => {
     stat = true;
-    console.log(stat);
-    // prop=true;
 }
 
 
@@ -28,29 +24,21 @@ const First = () => {
         setPhoneNumber(phoneNumber);
     }
 
-    // const q=(e)=>{
-    //     number= phoneNumber;
-    // }
+    
     const handlesend = () => {
-        // q(phoneNumber);
-        console.log(phoneNumber);
         fetch("http://localhost:3001/send-otp", {
             method: 'POST',
             body: JSON.stringify({
                 phoneNumber,
             }),
-            // headers: {
-            //     'Content-type': 'application/json; charset=UTF-8',
-            // },
+            
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
             .then((response) => {
-                console.log(response.status);
                 if (response.status == 200) {
-                    // console.log(success);
                     toast.success("OTP sent successfully");
                     setStatus(true);
                 }
@@ -60,7 +48,6 @@ const First = () => {
                 }
             })
             .catch((err) => {
-                console.log(err);
                 toast.success("Failed");
             })
     }
@@ -88,7 +75,7 @@ const First = () => {
                     :
                     <SecondMain>
                         <ThirdMain>
-                            Successful;
+                            Successful
                         </ThirdMain>
                         <Link href="/otp">
                             <Bu type="submit" >CONTINUE</Bu>
@@ -108,16 +95,6 @@ display: flex;
 justify-content: center;
 align-items: center;
 `
-
-// const Main = styled.div`
-// width: 100%;
-// height:100%;
-
-// display: flex;
-// justify-content: space-between;
-// align-items: center;
-// `
-
 const SecondMain = styled.div`
 align: center;
 height: 60%;
@@ -128,6 +105,11 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 align-items: center;
+
+@media (max-width: 431px) and (max-height: 933px) {
+    // width: 40rem;
+    // height: 100rem;
+   }
 `
 
 const ThirdMain = styled.div`
@@ -172,6 +154,10 @@ font-size: 16px;
 border-radius: 5px; 
 border: none; 
 cursor: pointer;
+
+@media (max-width: 431px) and (max-height: 933px) {
+    width: 10rem;
+   }
 `
 
 export { stat, prop, Number };
