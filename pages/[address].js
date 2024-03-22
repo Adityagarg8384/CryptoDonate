@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import Image from "next/image";
 import {ethers} from 'ethers';
 import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactory.json';
@@ -59,6 +59,8 @@ export default function Detail({Data, DonationsData}) {
       const signer = provider.getSigner();
       
       const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
+
+
       
       const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
       await transaction.wait();
@@ -105,19 +107,7 @@ export default function Detail({Data, DonationsData}) {
           </Funds>
         </FundsData>
         <Donated>
-          {/* <LiveDonation>
-            <DonationTitle>Recent Donation</DonationTitle>
-            {DonationsData.map((e) => {
-              return (
-                <Donation key={e.timestamp}>
-                <DonationData>{e.donar.slice(0,6)}...{e.donar.slice(39)}</DonationData>
-                <DonationData>{e.amount} Matic</DonationData>
-                <DonationData>{new Date(e.timestamp * 1000).toLocaleString()}</DonationData>
-              </Donation>
-              )
-            })
-            }
-          </LiveDonation> */}
+          
           <MyDonation>
             <DonationTitle>My Past Donation</DonationTitle>
             {mydonations.map((e) => {
@@ -182,6 +172,7 @@ export async function getStaticProps(context) {
 
   const Donations = contract.filters.donated();
   const AllDonations = await contract.queryFilter(Donations);
+  console.log(AllDonations);
 
 
   const Data = {
@@ -220,24 +211,55 @@ const DetailWrapper = styled.div`
   justify-content: space-between;
   padding: 20px;
   width: 98%;
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      flex-direction: column;
+      padding: 10px;
+      width: 100%;
+    }
+  `}
 `;
+
 const LeftContainer = styled.div`
   width: 45%;
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      width: 100%;
+    }
+  `}
 `;
+
 const RightContainer = styled.div`
   width: 50%;
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      width: 95%;
+    }
+  `}
 `;
+
 const ImageSection = styled.div`
   width: 100%;
   position: relative;
   height: 350px;
+
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      height: 250px;
+    }
+  `}
 `;
+
 const Text = styled.p`
   font-family: "Roboto";
   font-size: large;
   color: ${(props) => props.theme.color};
   text-align: justify;
 `;
+
 const Title = styled.h1`
   padding: 0;
   margin: 0;
@@ -245,6 +267,7 @@ const Title = styled.h1`
   font-size: x-large;
   color: ${(props) => props.theme.color};
 `;
+
 const DonateSection = styled.div`
   display: flex;
   width: 100%;
@@ -252,6 +275,7 @@ const DonateSection = styled.div`
   align-items: center;
   margin-top: 10px;
 `;
+
 const Input = styled.input`
   padding: 8px 15px;
   background-color: ${(props) => props.theme.bgDiv};
@@ -263,6 +287,7 @@ const Input = styled.input`
   width: 40%;
   height: 40px;
 `;
+
 const Donate = styled.button`
   display: flex;
   justify-content: center;
@@ -276,13 +301,19 @@ const Donate = styled.button`
   font-weight: bold;
   border-radius: 8px;
   font-size: large;
+  @media (max-width: 431px) and (max-height: 933px) {
+    width: 10rem;
+    margin-right: 2rem;
+  }
 `;
+
 const FundsData = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 `;
+
 const Funds = styled.div`
   width: 45%;
   background-color: ${(props) => props.theme.bgDiv};
@@ -290,25 +321,29 @@ const Funds = styled.div`
   border-radius: 8px;
   text-align: center;
 `;
+
 const FundText = styled.p`
   margin: 2px;
   padding: 0;
   font-family: "Poppins";
   font-size: normal;
 `;
+
 const Donated = styled.div`
   height: 280px;
   margin-top: 15px;
-
 `;
+
 const LiveDonation = styled.div`
   height: 65%;
   overflow-y: auto;
 `;
+
 const MyDonation = styled.div`
   height: 35%;
   overflow-y: auto;
 `;
+
 const DonationTitle = styled.div`
   font-family: "Roboto";
   font-size: x-small;
@@ -317,15 +352,15 @@ const DonationTitle = styled.div`
   text-align: center;
   background-color: #4cd137;
 `;
+
 const Donation = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 4px;
-
   padding: 4px 8px;
 `;
-const DonationData = styled.p`
 
+const DonationData = styled.p`
   font-family: "Roboto";
   font-size: large;
   margin: 0;
