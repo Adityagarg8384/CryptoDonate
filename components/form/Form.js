@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 import {TailSpin} from 'react-loader-spinner';
 import {ethers} from 'ethers';
 import {toast} from 'react-toastify';
-import CampaignFactory from '../../artifacts/Contracts/Campaigns.sol/CampaignFactory'
+import CampaignFactory from '../../artifacts/Contracts/Campaigns.sol/CampaignFactory.json'
 
 const FormState = createContext();
 
