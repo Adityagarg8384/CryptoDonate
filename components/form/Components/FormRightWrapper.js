@@ -27,19 +27,16 @@ const FormRightWrapper = () => {
   const [uploaded, setUploaded] = useState(false);
 
   const uploadFiles = async (e) => {
-    console.log(process.env.MORALIS_API_KEY);
     e.preventDefault();
     await Moralis.start({
       apiKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjVjNTQ1MWVlLWFjNTctNGU1Mi05Y2EzLWYzMTRlMjkzNWQxYyIsIm9yZ0lkIjoiMzc1MTM4IiwidXNlcklkIjoiMzg1NTA5IiwidHlwZUlkIjoiMGVjNDVmYjEtMzRjYy00MThhLWE3OWMtZTdhOTNjNjVmNTVhIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3MDY3MTIyMjAsImV4cCI6NDg2MjQ3MjIyMH0.dutPV0T2uxx7WJqyTm5zcJzkvSCRkLER9meGuGITXV4",
     });
     setUploadLoading(true);
-    console.log(Handler);
 
     if (Handler.form.story !== "") {
       try {
         // const added = await client.add(Handler.form.story);
         // Handler.setStoryUrl(added.path)
-        console.log(Handler.form.story);
         const a = [{
           path: "a",
           content: Handler.form.story,
@@ -48,41 +45,32 @@ const FormRightWrapper = () => {
         const response = await Moralis.EvmApi.ipfs.uploadFolder({
           abi: a,
         });
-        console.log(response);
-        console.log(response.jsonResponse[0].path);
         Handler.setStoryUrl(response.jsonResponse[0].path);
       }
       catch (error) {
-        console.log(error);
         toast.warn(`Error Uploading Story`);
       }
     }
 
     if (Handler.image !== null) {
-      console.log(Handler.image);
       try {
         
         var file = Handler.image;
         var reader = new FileReader();
         reader.onloadend = async function () {
-          // console.log('RESULT', reader.result)
           const b= [{
             path: Handler.image.name,
             content:reader.result,
           }];
-          console.log(b);
           const response = await Moralis.EvmApi.ipfs.uploadFolder({
             abi: b,
           });
-          console.log(response);
           const index = response.jsonResponse[0].path.indexOf('ipfs/');
-          console.log(response.jsonResponse[0].path.substring(index+5));
           Handler.setImageUrl(response.jsonResponse[0].path.substring(index+5))
         }
         reader.readAsDataURL(file);
       }
       catch (error) {
-        console.log(error);
         toast.warn(`Error Uploading Image`);
       }
     }
