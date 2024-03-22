@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Image from "next/image";
 import { ethers } from 'ethers';
 import CampaignFactory from "../artifacts/Contracts/Campaigns.sol/CampaignFactory.json";
@@ -25,16 +25,12 @@ const dashboard = () => {
         CampaignFactory.abi,
         provider,
       )
-      // console.log(contract);
 
       const getAllCampaigns = contract.filters.campaignCreated(null, null, address);
 
       const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-      // console.log(AllCampaigns);
-      // console.log("Hello world");
 
       const AllData = AllCampaigns.map((e) => {
-        // console.group(e.args.campaignAddress);
         return {
           title: e.args.title,
           image: e.args.imgURI,
@@ -92,87 +88,93 @@ const dashboard = () => {
 }
 
 const Home = styled.div`
-display: flex;
-flex-direction:column;
-align-items: center;
-width:100%;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
 const CardsWrapper = styled.div`
-display: flex;
-justify-content: space-around;
-flex-wrap: wrap;
-width: 80%;
-margin-top:25px;
-// background-color: orange;
-// opacity: 0.5;
-`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 80%;
+  margin-top: 25px;
+  // background-color: orange;
+  // opacity: 0.5;
+  
+  ${({ theme }) => css`
+    @media (max-width: 431px) and (max-height: 933px) {
+      width: 80%;
+      flex-direction: column;
+    }
+  `}
+`;
+
 const T = styled.div`
-opacity: 0.5;
-`
+  opacity: 0.5;
+`;
 
 const Card = styled.div`
-width: 100%;
-margin-top:20px;
-background-color: white;
-
-&hover{
-  transform:translateY(-10px);
+  width: 100%;
+  margin-top: 20px;
+  background-color: white;
   transition: transform 0.5s;
-}
 
-&not(:hover){
-  transition: transform 0.5s; 
-}
-`
+  &:hover {
+    transform: translateY(-10px);
+  }
+`;
+
 const Img = styled.div`
-// backgound-color:orange;
-position: relative;
-height: 120px;
-width: 100px;
-`
+  // background-color: orange;
+  position: relative;
+  height: 120px;
+  width: 100px;
+`;
 
 const Title = styled.h2`
-font-family: 'Poppins';
-font-size: 18px;
-margin: 2px 0px;
-background-color: ${(props) => props.theme.bgSubDiv};
-padding: 5px;
-cursor: pointer;
-font-weight: normal;
-`
+  font-family: 'Poppins';
+  font-size: 18px;
+  margin: 2px 0px;
+  background-color: ${(props) => props.theme.bgSubDiv};
+  padding: 5px;
+  cursor: pointer;
+  font-weight: normal;
+`;
 
 const Data = styled.div`
-display: flex;
-justify-content: space-between;
-margin: 2px 0px;
-background-color: ${(props) => props.theme.bgSubDiv};
-padding: 5px;
-cursor: pointer;
-`
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 0px;
+  background-color: ${(props) => props.theme.bgSubDiv};
+  padding: 5px;
+  cursor: pointer;
+`;
 
 const Text = styled.p`
-display: flex;
-align-items: center;
-margin: 0px;
-padding: 0px;
-font-family: 'Poppins';
-font-size: 18px;
-font-weight: bold;
-`
+  display: flex;
+  align-items: center;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Poppins';
+  font-size: 18px;
+  font-weight: bold;
+`;
+
 const Button = styled.button`
-padding: 8px;
-text-align: center;
-width: 100%;
-background-color: #00b712;
-background-image:linear-gradient(180deg, #00b712 0%, #5aff15 80%);
-border:none;
-cursor: pointer;
-color:white;
-font-size: 14px;
-font-weight: bold;
-font-family:'Poppins';
-`
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+  background-color: #00b712;
+  background-image: linear-gradient(180deg, #00b712 0%, #5aff15 80%);
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Poppins';
+`;
 
 
 export default dashboard;
