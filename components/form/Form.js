@@ -43,7 +43,7 @@ const Form = () => {
         e.preventDefault();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        // console.log(signer);
+        console.log(signer);
         
         if(form.campaignTitle === "") {
           toast.warn("Title Field Is Empty");
@@ -61,6 +61,7 @@ const Form = () => {
             CampaignFactory.abi,
             signer
           );
+            console.log(contract);
 
           const CampaignAmount = ethers.utils.parseEther(form.requiredAmount);
          
