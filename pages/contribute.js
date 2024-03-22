@@ -65,8 +65,9 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
 
 
 export async function getStaticProps() {
-  const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL
+ const provider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_RPC_URL,
+    {name:"sepolia"},
   );
 
   const contract = new ethers.Contract(
