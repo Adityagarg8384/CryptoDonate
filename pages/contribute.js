@@ -6,7 +6,7 @@ import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactor
 import { useState } from 'react';
 import Link from 'next/link'
 
-export default function Index() {
+export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
 
   return (
