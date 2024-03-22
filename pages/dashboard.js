@@ -17,11 +17,11 @@ const dashboard = () => {
       const address = await signer.getAddress();
 
       const provider = new ethers.providers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_RPC_URL,
+        "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk",
       );
 
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_ADDRESS,
+       "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
         CampaignFactory.abi,
         provider,
       )
