@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { ethers } from 'ethers';
 import CampaignFactory from '../artifacts/Contracts/Campaigns.sol/CampaignFactory.json';
 import { useState } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
+require("dotenv").config();
 
 export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [filter, setFilter] = useState(AllData);
@@ -66,14 +67,14 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
 
 export async function getStaticProps() {
  const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-sepolia.g.alchemy.com/v2/gnwm04ix_mQTmjxbBIia62RuKQejyJjk",
+    process.env.NEXT_PUBLIC_RPC_URL,
     {name:"sepolia",
     chainId: 11155111,
     },
   );
 
   const contract = new ethers.Contract(
-    "0x5085bE1EfD79cf63A9fecB0871B238b3037b19AF",
+    process.env.NEXT_PUBLIC_ADDRESS,
     CampaignFactory.abi,
     provider
   );
